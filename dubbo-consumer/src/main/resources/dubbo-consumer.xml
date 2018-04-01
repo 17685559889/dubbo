@@ -7,11 +7,12 @@
 	http://code.alibabatech.com/schema/dubbo 
     http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
-	<dubbo:consumer check="false"/>
 	<dubbo:application name="dubbo-consumer" />
 	<dubbo:protocol name="dubbo" port="20880" />
 	<dubbo:registry client="curator" address="zookeeper://10.138.8.119:2181?backup=10.138.8.119:2182,10.138.8.119:2183,10.138.8.119:2184"/>
-	<dubbo:reference id="providerService" interface="org.dubbo.provider.service.ProviderService" check="true"/>
+	<!-- 订阅远程服务，指定url为直连提供绕过注册中心 -->
+	<dubbo:reference id="providerService" interface="org.dubbo.provider.service.ProviderService" url="dubbo://localhost:20880"/>
+	<dubbo:consumer check="false"/>
 	
 	
 </beans>
